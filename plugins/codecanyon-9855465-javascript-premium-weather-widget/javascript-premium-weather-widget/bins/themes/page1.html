@@ -1,0 +1,188 @@
+<div class="wlww-page1">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Roboto:300);
+        .wlww-page1 {
+            margin: 0;
+            padding: 20px;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-size: 16px;
+            line-height: 1.43;
+        }
+        .wlww-page1 .form-control {
+            height: 200%;
+            text-align: left;
+            margin-left: -12px;
+        }
+        .wlww-page1 .refresh {
+            font-size: 70%;
+            position: absolute;
+            top: 18px;
+            left: 10px;
+        }
+        .wlww-page1 .refreshable {
+            cursor: pointer;
+        }
+        .wlww-page1 .spaced-more {
+            margin-left: 30px;
+        }
+        .wlww-page1 span.spaced {
+            margin-left: 10px;
+        }
+        .wlww-page1 .skycon {
+            margin-right: 10px;
+        }
+        .wlww-page1 .btn {
+            border: 1px solid #000;
+            cursor: pointer;
+            text-align: center;
+            background: rgba(0,0,0,0.5);
+            vertical-align: top;
+            color: #fff;
+            padding: 5px;
+        }
+        .wlww-page1 .btn:hover {
+            background: #000;
+            color: #fff;
+        }
+        .wlww-page1 .wlww-line {
+            border-bottom: 1px solid #7c7c7c;
+        }
+        .wlww-page1 hr {
+            border: 0;
+            margin: 10px 0;
+            padding: 0;
+            border-bottom: 1px dashed #8f8f8f;
+            background: transparent;
+        }
+        .wlww-page1 .panel {
+            background: transparent;
+        }
+        .wlww-page1 .panel-body {
+            background: rgba(0,0,0,0.58);
+        }
+        .wlww-page1 .panel-body .row {
+            margin: 10px 0;
+        }
+        .wlww-page1 .panel-body .cell {
+            height: 30px;
+        }
+        .wlww-page1 .title {
+            margin: 10px;
+            font-size: 160%;
+        }
+        .wlww-page1 .zone {
+            margin-bottom: 20px;
+            font-size: 200%;
+        }
+        .wlww-page1 .current-description {
+            font-size: 160%;
+        }
+        .wlww-page1 .current-temperature {
+            font-size: 700%;
+        }
+        .wlww-page1 .max-temperature {
+        }
+        .wlww-page1 .min-temperature {
+            color: #74d1ff;
+        }
+        .wlww-page1 .info {
+            color: #74d1ff;
+        }
+        .wlww-page1 .ico-wind {
+            width: 52px;
+            height: 98px;
+            background-image: url('{{bins}}/assets/wind-white.png');
+        }
+    </style>
+
+    <div class="row zone">
+        <div class="col-sm-11">
+            <div class="glyphicon glyphicon-refresh refreshable refresh" ng-click="refresh()"></div>
+            <div class="spaced-more" data-wl-ng-editable-label data-value=weather.zone data-on-changed="doSearch()" data-is-typing="options.isSearching"></div>
+        </div>
+        <div class="col-sm-1">
+            <span class="btn btn-default pull-right" ng-click="options.isSearching = true">{{'Change' | wlNgWLocale:lang}}</span>
+        </div>
+    </div>
+    <div class="row refreshable" ng-click="refresh()">
+        <div class="col-sm-12">
+            <span skycon class="pull-left skycon" size="90" icon="weather.current.icon"></span>
+            <span class="current-description">{{weather.current.description}}</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <span class="current-temperature refreshable" ng-click="switchMu()">{{weather.current.temperature | wlNgWTemp:mu.temperature}}°</span>
+            <span class="btn btn-default" style="margin-top: 40px;" ng-click="switchMu()">{{mu.temperature}}</span>
+        </div>
+    </div>
+
+    <div class="panel panel-default">
+        <div class="panel-body">
+            <div>
+                <span class="title">{{'Forecast' | wlNgWLocale:lang}}</span>
+                <span class="btn btn-default pull-right" ng-click="switchShortForecast()">{{'More days' | wlNgWLocale:lang}}</span>
+            </div>
+            <div class="row" ng-repeat="day in weather.forecast|limitTo:options.forecastDays">
+                <div class="col-xs-3 cell" ng-class="{'wlww-line':!$last}">{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang}}</div>
+                <div class="col-xs-3 cell" ng-class="{'wlww-line':!$last}"><span skycon size="20" icon="day.icon"></span></div>
+                <div class="col-xs-3 cell max-temperature" ng-class="{'wlww-line':!$last}"><span class="pull-right">{{day.temperatureMax | wlNgWTemp:mu.temperature}}°</span></div>
+                <div class="col-xs-3 cell min-temperature" ng-class="{'wlww-line':!$last}"><span class="pull-right">{{day.temperatureMin | wlNgWTemp:mu.temperature}}°</span></div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="panel panel-default refreshable" ng-click="refresh()">
+        <div class="panel-body">
+            <div class="title">{{'Details' | wlNgWLocale:lang}}</div>
+            <div class="row">
+                <div class="col-xs-3">
+                    <span>{{'Feels like' | wlNgWLocale:lang}}</span><br class="visible-xs"/>
+                    <span class="spaced info">{{weather.current.temperatureApparent | wlNgWTemp:mu.temperature}}°</span>
+                </div>
+                <div class="col-xs-3">
+                    <span>{{'Max' | wlNgWLocale:lang}}</span><br class="visible-xs"/>
+                    <span class="spaced info">{{weather.today.temperatureMax  | wlNgWTemp:mu.temperature}}°</span>
+                </div>
+                <div class="col-xs-3">
+                    <span>{{'Min' | wlNgWLocale:lang}}</span><br class="visible-xs"/>
+                    <span class="spaced info">{{weather.today.temperatureMin  | wlNgWTemp:mu.temperature}}°</span>
+                </div>
+                <div class="col-xs-3">
+                    <span>{{'Humidity' | wlNgWLocale:lang}}</span><br class="visible-xs"/>
+                    <span class="spaced info">{{weather.current.humidity}} %</span>
+                </div>
+            </div>
+
+            <hr/>
+
+            <div class="row">
+                <div class="col-xs-12">{{'Today' | wlNgWLocale:lang}}: {{weather.today.description}}</div>
+            </div>
+            <div class="row">
+                <div class="col-xs-12">{{'Tomorrow' | wlNgWLocale:lang}}: {{weather.tomorrow.description}}</div>
+            </div>
+        </div>
+    </div>
+    <br/>
+    <div class="panel panel-default refreshable" ng-click="refresh()">
+        <div class="panel-body">
+            <div class="title">{{'Wind' | wlNgWLocale:lang}} &amp; {{'Pressure' | wlNgWLocale:lang}}</div>
+            <div class="row">
+                <div class="col-sm-1"><div class="ico-wind">&nbsp;</div></div>
+                <div class="col-sm-11">
+                    <div>
+                        <div>{{'Wind' | wlNgWLocale:lang}}</div>
+                        <div><span class="info">{{weather.current.windSpeed | wlNgWSpeed:mu.temperature}}</span> {{mu.speed}}</div>
+                    </div>
+                    <hr/>
+                    <div style="float: left;">
+                        <div>{{'Barometer' | wlNgWLocale:lang}}</div>
+                        <div><span class="info">{{weather.current.pressure | wlNgWPressure:mu.temperature}}</span> {{mu.pressure}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

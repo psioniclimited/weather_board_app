@@ -1,0 +1,91 @@
+<div class="wlww-complex1">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=News+Cycle);
+        .wlww-complex1 {
+            padding: 10px;
+            color: #fff;
+            font-family: 'News Cycle', sans-serif;
+            font-size: 13px;
+            font-weight: bold;
+            line-height: 1.43;
+        }
+        .wlww-complex1 .form-control {
+            text-align: left;
+            margin-left: -12px;
+        }
+        .wlww-complex1 .refreshable {
+            cursor: pointer;
+        }
+        .wlww-complex1 .row {
+            margin: 0;
+        }
+        .wlww-complex1 span.spaced {
+            margin-left: 5px;
+        }
+        .wlww-complex1 .title {
+            font-size: 150%;
+            margin: 0;
+        }
+        .wlww-complex1 .current-temperature {
+            font-size: 350%;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .wlww-complex1 .degree {
+            margin-top: 10px;
+            vertical-align: top;
+            cursor: pointer;
+            display: inline-block;
+        }
+        .wlww-complex1 .max-temperature {
+            color: #ffdf1a;
+            margin: 5px 0;
+        }
+        .wlww-complex1 .min-temperature {
+            color: #fff;
+            margin: 5px 0;
+        }
+        .wlww-complex1 .value {
+            font-weight: bold;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-sm-2">
+            <div class="title refreshable" ng-click="refresh()">{{'Now' | wlNgWLocale:lang}}</div>
+            <div class="location" data-wl-ng-editable-label data-value=weather.zone data-on-changed="doSearch()" data-is-typing="options.isSearching"></div>
+            <div>
+                <span class="current-temperature" ng-click="switchMu()">{{weather.current.temperature | wlNgWTemp:mu.temperature}}°</span>
+                <span class="degree" ng-click="switchMu()">{{mu.temperature}}</span>
+            </div>
+            <div class="refreshable" ng-click="refresh()">
+                <div>{{'Wind' | wlNgWLocale:lang}}:</div>
+                <div>
+                    <span class="glyphicon glyphicon-flag"></span>
+                    <span class="value spaced">{{weather.current.windSpeed | wlNgWSpeed:mu.temperature}} {{mu.speed}}</span>
+                </div>
+                <div>{{'Humidity' | wlNgWLocale:lang | wlNgWTrim3}}:</div>
+                <div>
+                    <span class="glyphicon glyphicon-tint"></span>
+                    <span class="value spaced">{{weather.current.humidity}}</span>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-2" ng-repeat="day in weather.forecast|limitTo:5">
+            <div class="refreshable" ng-click="refresh()">
+                <div class="title hidden-xs">{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang}}</div>
+                <div class="title visible-xs">{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang | wlNgWTrim3}}</div>
+                <div skycon size="50" icon="day.icon"></div>
+                <div class="max-temperature">
+                    <div>{{'High' | wlNgWLocale:lang}}</div>
+                    <div class="value">{{day.temperatureMax | wlNgWTemp:mu.temperature}}°</div>
+                </div>
+                <div class="min-temperature">
+                    <div>{{'Low' | wlNgWLocale:lang}}</div>
+                    <div class="value">{{day.temperatureMin | wlNgWTemp:mu.temperature}}°</div>
+                </div>
+                <div>{{day.description}}</div>
+            </div>
+        </div>
+    </div>
+</div>

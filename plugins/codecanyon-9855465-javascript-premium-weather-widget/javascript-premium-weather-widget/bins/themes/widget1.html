@@ -1,0 +1,112 @@
+<div class="wlww-widget1">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=News+Cycle);
+        .wlww-widget1 {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            font-family: 'News Cycle', sans-serif;
+            font-size: 13px;
+            line-height: 1.43;
+            height: 155px;
+        }
+        .wlww-widget1 .form-control {
+            text-align: left;
+            margin-left: -12px;
+        }
+        .wlww-widget1 .refreshable {
+            cursor: pointer;
+        }
+        .wlww-widget1 .current {
+            padding: 5px;
+        }
+        .wlww-widget1 .skycon {
+            cursor: pointer;
+        }
+        .wlww-widget1 span.spaced {
+            margin-left: 10px;
+        }
+        .wlww-widget1 .title {
+            text-transform: uppercase;
+        }
+        .wlww-widget1 .description {
+            font-weight: bold;
+            margin: 3px 0;
+        }
+        .wlww-widget1 .current-temperature {
+            font-size: 200%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .wlww-widget1 .degree {
+            font-size: 70%;
+            margin-top: 8px;
+            vertical-align: top;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .wlww-widget1 .skycon {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+        }
+        .wlww-widget1 .info {
+            margin-left: 100px;
+        }
+
+        .wlww-widget1 .skycon-forecast {
+            margin-right: 5px;
+        }
+        .wlww-widget1 .forecast {
+            cursor: pointer;
+            background-color: #222932;
+            text-shadow: none;
+            margin-top: -155px;
+        }
+        .wlww-widget1 .forecast .title {
+            text-transform: uppercase;
+            padding: 10px;
+        }
+        .wlww-widget1 .forecast .row {
+            margin: 0;
+            padding: 6px 0;
+        }
+    </style>
+
+    <div class="wlww-fixed current">
+        <div skycon size="70" icon="weather.current.icon" class="skycon" ng-click="toggleForecast()"></div>
+        <div class="info">
+            <div class="title" data-wl-ng-editable-label data-value=weather.zone data-on-changed="doSearch()" data-is-typing="options.isSearching"></div>
+            <div class="current-temperature" ng-click="switchMu()">{{weather.current.temperature | wlNgWTemp:mu.temperature}}°</div>
+            <div class="degree" ng-click="switchMu()">{{mu.temperature}}</div>
+            <div class="refreshable" ng-click="refresh()">
+                <div class="description">{{weather.current.description}}</div>
+                <div>
+                    <span>{{'High' | wlNgWLocale:lang}}: </span>{{weather.today.temperatureMax | wlNgWTemp:mu.temperature}}°
+                    <span>{{'Low' | wlNgWLocale:lang}}: </span>{{weather.today.temperatureMin | wlNgWTemp:mu.temperature}}°
+                </div>
+                <div>
+                    <span>{{'Wind' | wlNgWLocale:lang}}: </span>{{weather.current.windSpeed | wlNgWSpeed:mu.temperature}} {{mu.speed}}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wlww-fixed wlww-animate forecast" ng-show="options.showForecast" ng-click="toggleForecast()">
+        <div class="text-center title">{{'Forecast' | wlNgWLocale:lang}}</div>
+        <div ng-repeat="day in weather.forecast|limitTo:3">
+            <div class="row">
+                <div class="col-xs-7">
+                    <span skycon size="20" icon="day.icon" class="pull-left skycon-forecast"></span>
+                    <span>{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang | wlNgWTrim3}}</span>
+                </div>
+                <div class="col-xs-5">
+                    <div class="pull-right">
+                        <span>{{day.temperatureMin | wlNgWTemp:mu.temperature}}°{{mu.temperature}}</span> /
+                        <span>{{day.temperatureMax | wlNgWTemp:mu.temperature}}°{{mu.temperature}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,110 @@
+<div class="wlww-widget2">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=News+Cycle);
+        .wlww-widget2 {
+            padding: 0;
+            color: #fff;
+            font-family: 'News Cycle', sans-serif;
+            font-size: 13px;
+            height: 140px;
+            line-height: 1.43;
+        }
+        .wlww-widget2 .form-control {
+            text-align: left;
+        }
+        .wlww-widget2 .refreshable {
+            cursor: pointer;
+        }
+        .wlww-widget2 .current {
+            padding: 5px 0 0 10px;
+        }
+        .wlww-widget2 .skycon {
+            cursor: pointer;
+            position: absolute;
+        }
+        .wlww-widget2 .title {
+            text-transform: uppercase;
+            margin: 0 0 5px 0;
+        }
+        .wlww-widget2 .description {
+            font-weight: bold;
+            margin: 3px 0;
+        }
+        .wlww-widget2 .current-temperature {
+            font-size: 200%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .wlww-widget2 .degree {
+            font-size: 70%;
+            margin-top: 8px;
+            vertical-align: top;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .wlww-widget2 .skycon {
+        }
+        .wlww-widget2 .skycon-forecast {
+            margin: 4px 9px;
+        }
+        .wlww-widget2 .info {
+            margin-left: 80px;
+        }
+        .wlww-widget2 .max-temperature {
+        }
+        .wlww-widget2 .min-temperature {
+            color: #74d1ff;
+        }
+        .wlww-widget2 .skycon-forecast {
+            margin-right: 5px;
+        }
+        .wlww-widget2 .forecast {
+            cursor: pointer;
+            background-color: #222932;
+            text-shadow: none;
+            margin-top: -140px;
+        }
+        .wlww-widget2 .forecast .title {
+            text-transform: uppercase;
+            padding: 2px;
+        }
+        .wlww-widget2 .forecast .row {
+            margin: 0;
+            padding: 2px;
+        }
+    </style>
+
+    <div class="wlww-fixed current">
+        <div class="title" data-wl-ng-editable-label data-value=weather.zone data-on-changed="doSearch()" data-is-typing="options.isSearching"></div>
+        <div skycon size="70" icon="weather.current.icon" class="skycon" ng-click="toggleForecast()"></div>
+        <div class="info">
+            <div class="current-temperature" ng-click="switchMu()">{{weather.current.temperature | wlNgWTemp:mu.temperature}}°</div>
+            <div class="degree" ng-click="switchMu()">{{mu.temperature}}</div>
+            <div class="refreshable" ng-click="refresh()">
+                <div>
+                    <span class="max-temperature">{{weather.today.temperatureMax | wlNgWTemp:mu.temperature}}°</span> /
+                    <span class="min-temperature">{{weather.today.temperatureMin | wlNgWTemp:mu.temperature}}°</span>
+                </div>
+                <div class="description">{{weather.current.description}}</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="wlww-fixed wlww-animate forecast" ng-show="options.showForecast" ng-click="toggleForecast()">
+        <div class="text-center title">{{'Forecast' | wlNgWLocale:lang}}</div>
+        <div ng-repeat="day in weather.forecast|limitTo:3">
+            <div class="row">
+                <div class="col-xs-6">
+                    <span skycon size="20" icon="day.icon" class="pull-left skycon-forecast"></span>
+                    <span>{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang}}</span>
+                </div>
+                <div class="col-xs-6">
+                    <div class="pull-right">
+                        <span>{{day.temperatureMin | wlNgWTemp:mu.temperature}}°{{mu.temperature}}</span> /
+                        <span>{{day.temperatureMax | wlNgWTemp:mu.temperature}}°{{mu.temperature}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

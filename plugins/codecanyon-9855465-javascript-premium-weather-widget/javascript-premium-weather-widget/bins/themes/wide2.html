@@ -1,0 +1,64 @@
+<div class="wlww-wide2">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=News+Cycle);
+        .wlww-wide2 {
+            margin: 0;
+            padding: 30px;
+            color: #fff;
+            font-family: 'News Cycle', sans-serif;
+            font-size: 16px;
+            line-height: 1.43;
+        }
+        .wlww-wide2 .form-control {
+            text-align: left;
+            height: 45px;
+            margin-left: -12px;
+        }
+        .wlww-wide2 .refreshable {
+            cursor: pointer;
+        }
+        .wlww-wide2 div {
+            padding: 5px 0;
+        }
+        .wlww-wide2 span.spaced {
+            margin-left: 10px;
+        }
+        .wlww-wide2 .title {
+            font-size: 160%;
+        }
+        .wlww-wide2 .current-temperature {
+            font-size: 700%;
+            margin-top: -55px;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .wlww-wide2 .degree {
+            vertical-align: top;
+            display: inline-block;
+        }
+    </style>
+
+    <div>
+        <div class="current-temperature" ng-click="switchMu()">{{weather.current.temperature | wlNgWTemp:mu.temperature}}°</div>
+        <div class="degree" ng-click="switchMu()">{{mu.temperature}}</div>
+    </div>
+
+    <div class="refreshable" ng-click="refresh()">
+        <div>
+            <div class="title" data-wl-ng-editable-label data-value=weather.zone data-on-changed="doSearch()" data-is-typing="options.isSearching"></div>
+            <div class="title">{{weather.current.description}}</div>
+        </div>
+        <div>
+            <div>{{'Today' | wlNgWLocale:lang}}</div>
+            <span class="glyphicon glyphicon-chevron-up"></span> <span class="max-temperature">{{weather.today.temperatureMax | wlNgWTemp:mu.temperature}}°</span>
+            <span class="glyphicon glyphicon-chevron-down"></span> <span class="min-temperature">{{weather.today.temperatureMin | wlNgWTemp:mu.temperature}}°</span>
+            <span class="spaced">{{weather.today.description}}</span>
+        </div>
+        <div>
+            <div>{{'Tomorrow' | wlNgWLocale:lang}}</div>
+            <span class="glyphicon glyphicon-chevron-up"></span> <span class="max-temperature">{{weather.tomorrow.temperatureMax | wlNgWTemp:mu.temperature}}°</span>
+            <span class="glyphicon glyphicon-chevron-down"></span> <span class="min-temperature">{{weather.tomorrow.temperatureMin | wlNgWTemp:mu.temperature}}°</span>
+            <span class="spaced">{{weather.tomorrow.description}}</span>
+        </div>
+    </div>
+</div>

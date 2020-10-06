@@ -1,0 +1,117 @@
+<div class="wlww-complex2">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=News+Cycle);
+        .wlww-complex2 {
+            padding: 15px;
+            color: #fff;
+            font-family: 'News Cycle', sans-serif;
+            font-size: 13px;
+            line-height: 1.43;
+        }
+        .wlww-complex2 .form-control {
+            text-align: left;
+            height: 45px;
+            margin-left: -12px;
+        }
+        .wlww-complex2 .row {
+            margin: 0;
+        }
+        .wlww-complex2 span.spaced {
+            margin-left: 10px;
+        }
+        .wlww-complex2 .refreshable {
+            cursor: pointer;
+        }
+        .wlww-complex2 .location {
+            font-size: 200%;
+            font-weight: bold;
+        }
+        .wlww-complex2 .description {
+            font-weight: bold;
+            margin: 3px 0;
+        }
+        .wlww-complex2 .current-temperature {
+            display: inline-block;
+            margin-top: -20px;
+            font-size: 500%;
+            cursor: pointer;
+        }
+        .wlww-complex2 .degree {
+            display: inline-block;
+            margin-top: 0;
+            font-size: 150%;
+            vertical-align: top;
+            cursor: pointer;
+        }
+        .wlww-complex2 .forecast {
+            margin: 30px 20px 0;
+            padding: 10px;
+        }
+        .wlww-complex2 .forecast .day{
+        }
+        .wlww-complex2 .forecast .forecast-cell{
+            margin: 5px 0;
+            padding: 5px;
+            border: 1px solid #adadad;
+        }
+        .wlww-complex2 .max-temperature {
+            color: #ffdf1a;
+        }
+        .wlww-complex2 .min-temperature {
+            color: #74d1ff;
+        }
+        .wlww-complex2 .value {
+            font-weight: bold;
+        }
+        .wlww-complex2 .skycon {
+            margin: 5px 0;
+        }
+    </style>
+
+    <div>
+        <span class="current-temperature" ng-click="switchMu()">{{weather.current.temperature | wlNgWTemp:mu.temperature}}°</span>
+        <span class="degree" ng-click="switchMu()">{{mu.temperature}}</span>
+        <span class="description">{{weather.current.description}}</span>
+    </div>
+    <div class="location" data-wl-ng-editable-label data-value=weather.zone data-on-changed="doSearch()" data-is-typing="options.isSearching"></div>
+    <div class="refreshable" ng-click="refresh()">
+        <div>
+            <span>{{'High' | wlNgWLocale:lang}}: </span><span class="spaced value max-temperature">{{weather.today.temperatureMax | wlNgWTemp:mu.temperature}}°</span>
+            <span class="spaced">{{'Low' | wlNgWLocale:lang}}: </span><span class="spaced value min-temperature">{{weather.today.temperatureMin | wlNgWTemp:mu.temperature}}°</span>
+        </div>
+        <div>
+            <span>{{'Wind' | wlNgWLocale:lang}}: </span><span class="spaced value">{{weather.current.windSpeed | wlNgWSpeed:mu.temperature}}</span> {{mu.speed}}
+        </div>
+        <div>
+            <span>{{'Precipitation' | wlNgWLocale:lang}}: </span><span class="spaced value">{{weather.current.precipitationProbability}}</span> %
+        </div>
+        <div>
+            <span>{{'Humidity' | wlNgWLocale:lang}}: </span><span class="spaced value">{{weather.current.humidity}}</span> %
+        </div>
+        <div>
+            <span>{{'Pressure' | wlNgWLocale:lang}}: </span><span class="spaced value">{{weather.current.pressure | wlNgWPressure:mu.temperature}}</span> {{mu.pressure}}
+        </div>
+    </div>
+    <div class="row forecast">
+        <div class="col-sm-2 text-center" ng-repeat="day in weather.forecast | limitTo:6">
+            <div class="forecast-cell refreshable" style="background-color: {{$index|wlNgRainbow}};" ng-click="refresh()">
+                <div class="day visible-xs">{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang}}</div>
+                <div class="day hidden-xs">{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang | wlNgWTrim3}}</div>
+                <div class="day small">{{day.time | wlNgWTimeConverter}}</div>
+                <div class="skycon" skycon size="30" icon="day.icon"></div>
+                <div>
+                    <span class="max-temperature value">{{day.temperatureMax | wlNgWTemp:mu.temperature}}°</span> /
+                    <span class="min-temperature value">{{day.temperatureMin | wlNgWTemp:mu.temperature}}°</span>
+                </div>
+                <div>
+                    <span class="glyphicon glyphicon-flag"></span>
+                    <span class="value">{{day.windSpeed | wlNgWSpeed:mu.temperature}} </span><br class="hidden-xs"/>{{mu.speed}}
+                </div>
+                <div>
+                    <span class="glyphicon glyphicon-tint"></span>
+                    <span class="value">{{day.humidity}}</span> %
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

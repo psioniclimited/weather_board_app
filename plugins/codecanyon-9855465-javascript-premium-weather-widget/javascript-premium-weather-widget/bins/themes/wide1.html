@@ -1,0 +1,125 @@
+<div class="wlww-wide1">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=Roboto:300);
+        .wlww-wide1 {
+            margin: 0;
+            padding: 0;
+            color: #fff;
+            font-family: 'Roboto', sans-serif;
+            font-size: 14px;
+            line-height: 1.43;
+            height: 450px;
+        }
+        .wlww-wide1 .form-control {
+            text-align: center;
+        }
+        .wlww-wide1 .refreshable {
+            cursor: pointer;
+        }
+        .wlww-wide1 table, tbody, tr, td {
+            border-top: none !important;
+            padding: 0 !important;
+            margin: 0 !important;
+        }
+        .wlww-wide1 .current {
+            text-align: center;
+            margin: 0;
+            padding: 30px;
+        }
+        .wlww-wide1 .skycon {
+            cursor: pointer;
+        }
+        .wlww-wide1 .title {
+            font-size: 160%;
+            margin: 0 0 15px 0;
+        }
+        .wlww-wide1 .data {
+            font-size: 140%;
+        }
+        .wlww-wide1 .label {
+            opacity: .7;
+            text-transform: uppercase;
+        }
+        .wlww-wide1 .current-temperature {
+            font-size: 700%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .wlww-wide1 .degree {
+            vertical-align: top;
+            display: inline-block;
+            margin-top: 40px;
+        }
+        .wlww-wide1 .current .row {
+            margin: 0;
+            padding: 0;
+            height: 50px;
+        }
+
+        .wlww-wide1 .skycon-forecast {
+            margin-right: 5px;
+        }
+        .wlww-wide1 .forecast {
+            cursor: pointer;
+            background-color: #222932;
+            text-shadow: none;
+            margin-top: -450px;
+        }
+        .wlww-wide1 .forecast .title {
+            text-transform: uppercase;
+            padding: 15px;
+        }
+        .wlww-wide1 .forecast .row {
+            margin: 0;
+            padding: 12px;
+        }
+    </style>
+
+    <div class="wlww-fixed current">
+        <div class="title" data-wl-ng-editable-label data-value=weather.zone data-on-changed="doSearch()" data-is-typing="options.isSearching"></div>
+        <div skycon size="100" icon="weather.current.icon" class="skycon" ng-click="toggleForecast()"></div>
+        <div class="title refreshable" ng-click="refresh()">{{weather.current.description}}</div>
+        <div>
+            <div class="current-temperature" ng-click="switchMu()">{{weather.current.temperature | wlNgWTemp:mu.temperature}}°</div>
+            <div class="degree" ng-click="switchMu()">{{mu.temperature}}</div>
+        </div>
+        <table class="table refreshable" ng-click="refresh()">
+            <tr>
+                <td width="33%">
+                    <div class="label">{{'Rain' | wlNgWLocale:lang}}</div>
+                    <div class="data">{{weather.current.precipitationProbability}} %</div>
+                </td>
+                <td width="33%">
+                    <div class="label">{{'Wind' | wlNgWLocale:lang}}</div>
+                    <div class="data">{{weather.current.windSpeed | wlNgWSpeed:mu.temperature}} {{mu.speed}}</div>
+                </td>
+                <td width="33%">
+                    <div class="label">{{'Humidity' | wlNgWLocale:lang}}</div>
+                    <div class="data">{{weather.current.humidity}} %</div>
+                </td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="wlww-fixed wlww-animate forecast" ng-show="options.showForecast" ng-click="toggleForecast()">
+        <div class="text-center title">
+            <span>{{'Forecast' | wlNgWLocale:lang}}</span>
+            <span class="hidden-xs"> - {{weather.zone}}</span>
+        </div>
+        <div ng-repeat="day in weather.forecast|limitTo:7">
+            <div class="row">
+                <div class="col-xs-8">
+                    <span skycon size="20" icon="day.icon" class="pull-left skycon-forecast"></span>
+                    <span class="visible-xs">{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang}}</span>
+                    <span class="hidden-xs">{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang | wlNgWTrim3}}: {{day.description}}</span>
+                </div>
+                <div class="col-xs-4">
+                    <div class="pull-right">
+                        <span>{{day.temperatureMin | wlNgWTemp:mu.temperature}}°{{mu.temperature}}</span> /
+                        <span>{{day.temperatureMax | wlNgWTemp:mu.temperature}}°{{mu.temperature}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

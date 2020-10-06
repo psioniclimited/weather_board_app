@@ -1,0 +1,61 @@
+<div class="wlww-widget4">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=News+Cycle);
+        .wlww-widget4 {
+            font-family: 'News Cycle', sans-serif;
+            padding: 0;
+            color: #fff;
+            line-height: 1.43;
+        }
+        .wlww-widget4 .form-control {
+            text-align: center;
+        }
+        .wlww-widget4 .refreshable {
+            cursor: pointer;
+        }
+        .wlww-widget4 .current {
+            padding: 10px 10px 30px 10px;
+        }
+        .wlww-widget4 .zone {
+            font-weight: bold;
+        }
+        .wlww-widget4 .current-temperature {
+            font-size: 600%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .wlww-widget4 .forecast-box {
+            text-shadow: none;
+        }
+        .wlww-widget4 .skycon-forecast {
+            margin-right: 5px;
+        }
+        .wlww-widget4 .forecast-box .row {
+            margin: 0;
+            padding: 8px;
+            background-color: #222932;
+            border-bottom: 1px solid #464646;
+        }
+    </style>
+
+    <div class="current text-center">
+        <div skycon size="120" icon="weather.current.icon" class="refreshable" ng-click="refresh()"></div>
+        <div class="current-temperature" ng-click="switchMu()">{{weather.current.temperature | wlNgWTemp:mu.temperature}}°{{mu.temperature}}</div>
+        <div class="zone" data-wl-ng-editable-label data-value=weather.zone data-on-changed="doSearch()" data-is-typing="options.isSearching"></div>
+    </div>
+
+    <div class="forecast-box" ng-repeat="day in weather.forecast|limitTo:5">
+        <div class="row">
+            <div class="col-xs-7">
+                <span skycon size="20" icon="day.icon" class="pull-left skycon-forecast"></span>
+                <span>{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang}}</span>
+            </div>
+            <div class="col-xs-5">
+                <div class="pull-right">
+                    <span>{{day.temperatureMin | wlNgWTemp:mu.temperature}}°</span> /
+                    <span>{{day.temperatureMax | wlNgWTemp:mu.temperature}}°</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

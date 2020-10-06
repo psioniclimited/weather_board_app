@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en" class="full">
+<!-- Make sure the <html> tag is set to the .full CSS class. Change the background image in the full.css file. -->
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <meta http-equiv="Set-Cookie" content="fileDownload=true; path=/">
+
+  <title>Weather Board</title>
+
+  <!-- Bootstrap Core CSS -->
+  <link href="css/bootstrap.css" rel="stylesheet">
+  <!-- Full CSS -->
+  <link href="css/full.css" rel="stylesheet">
+
+  <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+  <!--[if lt IE 9]>
+  <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+  <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+  <![endif]-->
+
+  <!-- Bangla font -->
+  <!-- <link href="https://fonts.maateen.me/kalpurush/font.css" rel="stylesheet"> -->
+  <!-- Custom CSS -->
+  <link href="css/custom.css" rel="stylesheet">
+</head>
+<body>
+  <!-- Page Content -->
+  <div class="container-fluid">
+    <div class="row"> 
+      <div class="col-md-9">
+        <div class="row">
+          <div class="video-section">
+            <!-- Aspect ratio = 16:9 -->
+            <!-- <iframe width="1440" height="810" src="https://www.youtube.com/embed/TzevGmlfEi0?vq=large&amp;rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1&amp;loop=1&amp;modestbranding=1" frameborder="0" id="video-frame"></iframe> -->
+            <video width="1440" height="810" autoplay playsinline loop muted id="video-frame">
+              <source src="videos/video-4.mp4" type="video/mp4" />
+            </video>
+            <div class="hide-youtube-logo">
+              <!-- <img src="images/overlay-2.png" alt=""> -->
+            </div><!-- hide-youtube-logo -->
+          </div><!-- video-section -->
+        </div><!-- row -->
+      </div><!-- col-md-9 -->
+      <div class="col-md-3">
+        <div class="row" style="display:none;">
+          <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner" role="listbox">
+              <div class="item active">
+                <img src="images/notice-1.jpg" width="100%">
+              </div>
+
+              <!-- <div class="item">
+                <img src="images/carousal-5.jpg">
+              </div> -->
+
+              <!-- <div class="item">
+                <img src="images/img-3.jpg" width="595">
+              </div> -->
+
+            </div>
+          </div><!-- myCarousel -->
+        </div><!-- row -->
+        <!-- Weather widget starts here -->
+        <div  ng-app="wl-ng-weather"
+        wl-ng-weather
+        lang="bn"
+        theme="narrow1"
+        background="dynamic"
+        id="weather-widget">
+        </div>
+        <!-- Weather widget ends here -->
+
+        <!-- <a href="http://jqueryfiledownload.apphb.com/FileDownload/DownloadReport/0" class="fileDownloadPromise">Report0.pdf</a> -->
+
+        <style>
+          /* Use Open Sans font*/
+          @import url(https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800);
+          .wlww-narrow1 {
+            font-family: 'Open Sans', sans-serif;
+          }
+          /* Place forecast box*/
+          .wlww-narrow1 .forecast-box {
+            background: rgba(0,0,0,0.58);
+          }
+          /* Set height of forecast box*/
+          .wlww-narrow1 .forecast-box {
+            height: 130px;
+          }
+          /* Set font size of text in the weather widget*/
+          .wlww-narrow1 {
+            padding: 5px;
+            font-size: 16px;
+          }
+
+          /* Prevent text going outside forecast box*/
+          .wlww-narrow1 .info {
+            margin-right: 15px;
+          }
+        </style>
+      </div><!-- col-md-3 -->
+    </div><!-- row -->
+    <div class="row">
+      <div class="col-md-2">
+        <div class="price-text">
+          <h1>আজকের দাম</h1>
+          <h3>কারওয়ান বাজার</h3>
+        </div><!-- price-text -->
+      </div><!-- col-md-2 -->
+      <div class="col-md-10">
+        <ul id="text">
+          <span>
+            <li>মুলা</li>
+            <li></li>
+          </span>
+          <span>
+            <li>আলু</li>
+            <li></li>
+          </span>
+          <span>
+            <li>মুলা</li>
+            <li></li>
+          </span>
+          <span>
+            <li>ফুলকপি</li>
+            <li></li>
+          </span>
+          <span>
+            <li>মুলা</li>
+            <li></li>
+          </span>
+          <span>
+            <li>সিম</li>
+            <li></li>
+          </span>
+          <span>
+            <li>মুলা</li>
+            <li></li>               
+          </span>
+        </ul><!-- text -->
+      </div><!-- col-md-10 -->
+    </div><!-- row -->
+  </div><!-- /.container-fluid -->
+
+  <div class="footer">
+    <div class="web-ticker">
+        <ul id="ticker-elements">
+            <marquee></marquee>
+        </ul><!-- ticker-elements -->
+    </div><!-- web-ticker -->
+    <div class="ticker-sibling">
+      <ul class="sibling-list">
+        <li>
+          <img src="images/bangladesh-govt-logo.gif" height="70px" width="70px">
+        </li>
+        <li>
+          <img src="images/pa-logo-140x72.gif">
+        </li>
+        <li>
+          <div class="time-frame">
+            <div id='time-part'></div>
+            <div id='date-part'></div>
+          </div>
+        </li>
+      </ul><!-- sibling-list -->
+    </div><!-- ticker-sibling -->
+  </div><!-- footer -->
+  
+
+  <!-- jQuery -->
+  <script src="js/jquery.js"></script>
+  <!-- Bootstrap Core JavaScript -->
+  <script src="js/bootstrap.min.js"></script>
+  <!-- Moment JS -->
+  <script src="js/moment.min.js"></script>
+  <!-- Pusher -->
+  <script src="https://js.pusher.com/4.0/pusher.min.js"></script>
+  <!-- Weather Widget script starts here -->
+  <script src="plugins/codecanyon-9855465-javascript-premium-weather-widget/javascript-premium-weather-widget/bins/lib/skycons/skycons.js" type="text/javascript"></script>
+  <script src="plugins/codecanyon-9855465-javascript-premium-weather-widget/javascript-premium-weather-widget/bins/lib/angular/angular.min.js" type="text/javascript"></script>
+  <script src="plugins/codecanyon-9855465-javascript-premium-weather-widget/javascript-premium-weather-widget/bins/lib/angular/angular-animate.min.js" type="text/javascript"></script>
+  <!-- Google map api starts here -->
+  <!-- <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC5CwkU2M3tpAvzcZ4FljbEYruM6LhzF3M&libraries=places"></script> -->
+  <!-- <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script> -->
+  <!-- Google map api ends here -->
+  <script src="plugins/codecanyon-9855465-javascript-premium-weather-widget/javascript-premium-weather-widget/bins/wl-ng-weather.js" type="text/javascript"></script>
+  <!-- Weather Widget script ends here -->
+  <!-- Jquery file download -->
+  <script src="plugins/jquery-file-download-plugin/jquery.fileDownload.js"></script>
+
+  <!-- Page script -->
+  <script>
+    // Date and time
+    $(document).ready(function() {
+
+      var interval = setInterval(function() {
+        var momentNow = moment();
+        $('#date-part').html(momentNow.format('dddd') + ' ' + momentNow.format('DD MMMM YYYY'));
+        $('#time-part').html(momentNow.format('hh:mm:ss A'));
+      }, 100);
+
+    });
+
+    // Gobal variable
+    // Select ul list with id text
+    var price_list = $('ul#text');
+    // Select ticker
+    var ticker_list = $('marquee');
+
+    // Price text
+    var pusher_price = new Pusher('f37dbe38ba1c294e8eec', {
+      cluster: 'ap1',
+      encrypted: true
+    });
+
+    var channel = pusher_price.subscribe('price-changed');
+    channel.bind('price-change-event', function(data) {
+      // Get item text in array format
+      var item_text = data.item_text;
+      // Get item price in array format
+      var item_price = data.item_price;
+      // Empty the price list
+      price_list.empty();
+      // New price list
+      $.each(item_text, function(i){
+        var span = $('<span/>')
+        .appendTo(price_list);
+
+        var span_item_text = $('<li/>')
+        .text(item_text[i])
+        .appendTo(span);
+
+        var span_item_price = $('<li/>')
+        .text(item_price[i])
+        .appendTo(span);
+      });
+    });
+
+    // Ticker text
+    var pusher_ticker = new Pusher('f37dbe38ba1c294e8eec', {
+      cluster: 'ap1',
+      encrypted: true
+    });
+
+    var channel_ticker = pusher_ticker.subscribe('ticker-changed');
+    channel_ticker.bind('ticker-change-event', function(data) {
+      // Get ticker text in array format
+      var ticker_text_from_backend = data.ticker_text;
+      // Empty the ticker list
+      ticker_list.empty();
+      var ticker_string = '';
+      // Append ticker items to a string
+      $.each(ticker_text_from_backend, function(i){
+        ticker_string = ticker_string + ticker_text_from_backend[i] + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' + '|' + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0';
+      });
+      // Update ticker list
+      ticker_list.text(ticker_string);
+    });
+
+    // Video link text
+    var pusher_video_link = new Pusher('f37dbe38ba1c294e8eec', {
+      cluster: 'ap1',
+      encrypted: true
+    });
+
+    var channel_video_link = pusher_video_link.subscribe('video-changed');
+    channel_video_link.bind('video-change-event', function(data) {
+      // Get video link text
+      var video_link_text = data.video_link_text;
+      var video_type = data.video_type;
+      if (video_type == 'local') {
+        $.fileDownload(video_link_text);
+        var pieces = video_link_text.split("/");
+        var filename = pieces[pieces.length-1];
+        var url = 'videos/'+filename;
+        // Wait for 2 hours before changing video link
+        setTimeout(function(){
+          // Remove previous local video tag
+          $("#video-frame").remove();
+          // Add new local video tag
+          $('<video width="1440" height="810" autoplay loop  id="video-frame"><source src="videos/video-4.mp4" type="video/mp4" /></video>')
+          .appendTo('.video-section');
+          
+          $('#video-frame').attr('src', url);
+          // Remove youtube iframe
+          $("#video-frame-youtube").remove();  
+          // $('#video-frame').contentWindow.location.reload(true);
+        }, 240000);
+      }
+      else {
+        var extra_string = "?vq=large&amp;rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1&amp;loop=1&amp;modestbranding=1";
+        var url = video_link_text + extra_string;
+        // Remove previous youtube iframe
+        $("#video-frame-youtube").remove();
+        // Add new youtube iframe
+        $('<iframe width="1440" height="810" src="https://www.youtube.com/embed/TzevGmlfEi0?vq=large&amp;rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1&amp;loop=1&amp;modestbranding=1" frameborder="0" id="video-frame-youtube"></iframe>')
+        .appendTo('.video-section');
+
+        $('#video-frame-youtube').attr('src', url);
+        // Remove local video tag
+        $("#video-frame").remove();
+      }
+    });
+
+    // Weather widget script
+    angular.module('wl-ng-weather').value('bins', 'plugins/codecanyon-9855465-javascript-premium-weather-widget/javascript-premium-weather-widget/bins');
+    angular.module('wl-ng-weather').value('apikey', '4f005ad2d65a0efea7d5cf13d3e15073');
+
+    // Update board data from server every 30 minutes
+    var interval_data = setInterval(function() {
+      // var url = "http://localhost:8000/sync/data";
+      // var url = "http://192.168.0.108:8000/sync/data";
+      // var url = "http://psionic.io/weatherboard/sync/data";
+      var url = "http://weatherboard.ingoforum.com/sync/data";
+
+      // For price list update
+      $.get( url, {data: "price_list"}, {dataType: "json"} )
+      .done(function( data ) {
+        var text_array_backend = []; 
+        var price_array_backend = []; 
+
+        $.each(data, function (index, value) {
+          text_array_backend.push(value.text);
+          price_array_backend.push(value.price);
+        });
+
+        $.each(text_array_backend, function(i) {
+          // Empty the price list
+          price_list.empty();
+          // New price list
+          $.each(text_array_backend, function(i){
+            var span = $('<span/>')
+            .appendTo(price_list);
+
+            var span_item_text = $('<li/>')
+            .text(text_array_backend[i])
+            .appendTo(span);
+
+            var span_item_price = $('<li/>')
+            .text(price_array_backend[i])
+            .appendTo(span);
+          });
+        });
+      });
+
+      // For ticker list update
+      $.get( url, {data: "ticker_list"}, {dataType: "jsonp"} )
+      .done(function( data ) {
+        var ticker_text_from_backend = []; 
+        $.each(data, function (index, value) {
+          ticker_text_from_backend.push(value.text);
+        });
+        // Empty the current ticker list
+        ticker_list.empty();
+        var ticker_string = '';
+        // Append ticker items to a string
+        $.each(ticker_text_from_backend, function(i){
+          ticker_string = ticker_string + ticker_text_from_backend[i] + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' + '|' + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0';
+        });
+        // Update ticker list
+        ticker_list.text(ticker_string);
+      });
+
+    }, 240000);
+
+    $( window ).on( "load", function() {
+      // For video link update
+      // var url = "http://localhost:8000/sync/data" + "?token=" + localStorage.getItem('token');
+      // var url = "http://localhost:8000/sync/data";
+      // var url = "http://192.168.0.108:8000/sync/data";
+      // var url = "http://psionic.io/weatherboard/sync/data";
+      var url = "http://weatherboard.ingoforum.com/sync/data";
+      
+      // For price list update
+      $.get( url, {data: "price_list"}, {dataType: "json"} )
+      .done(function( data ) {
+        var text_array_backend = []; 
+        var price_array_backend = []; 
+
+        $.each(data, function (index, value) {
+          text_array_backend.push(value.text);
+          price_array_backend.push(value.price);
+        });
+
+        $.each(text_array_backend, function(i) {
+          // Empty the price list
+          price_list.empty();
+          // New price list
+          $.each(text_array_backend, function(i){
+            var span = $('<span/>')
+            .appendTo(price_list);
+
+            var span_item_text = $('<li/>')
+            .text(text_array_backend[i])
+            .appendTo(span);
+
+            var span_item_price = $('<li/>')
+            .text(price_array_backend[i])
+            .appendTo(span);
+          });
+        });
+      });
+
+      // For ticker list update
+      $.get( url, {data: "ticker_list"}, {dataType: "jsonp"} )
+      .done(function( data ) {
+        var ticker_text_from_backend = []; 
+        $.each(data, function (index, value) {
+          ticker_text_from_backend.push(value.text);
+        });
+        // Empty the current ticker list
+        ticker_list.empty();
+        var ticker_string = '';
+        // Append ticker items to a string
+        $.each(ticker_text_from_backend, function(i){
+          ticker_string = ticker_string + ticker_text_from_backend[i] + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0' + '|' + '\xa0\xa0\xa0\xa0\xa0\xa0\xa0';
+        });
+        // Update ticker list
+        ticker_list.text(ticker_string);
+      });
+
+      // For video link update
+      $.get( url, {data: "video_link"}, {dataType: "json"} )
+      .done(function( data ) {
+        var video_link_backend = data; 
+          // local video
+          if (video_link_backend.indexOf('getvideo') > -1) {
+            var pieces = video_link_backend.split("/");
+            var filename = pieces[pieces.length-1];
+            // var check_video_url = 'http://localhost/weather_board_app/videos/'+filename;
+            var check_video_url = 'http://localhost:8080/videos/'+filename;
+            var url = 'videos/'+filename;
+
+            $.ajax({
+              type: 'HEAD',
+              url: url,
+              complete: function (xhr){
+                if (xhr.status == 404){
+                  console.clear();
+                  $.fileDownload(video_link_backend);
+                  // Wait for 2 hours before changing video link
+                  setTimeout(function(){
+                    // Remove previous local video tag
+                    $("#video-frame").remove();
+                    // Add new local video tag
+                    $('<video width="1440" height="810" autoplay loop  id="video-frame"><source src="videos/video-4.mp4" type="video/mp4" /></video>')
+                    .appendTo('.video-section');
+                    
+                    $('#video-frame').attr('src', check_video_url);
+                    // Remove youtube iframe
+                    $("#video-frame-youtube").remove();  
+                    // $('#video-frame').contentWindow.location.reload(true);
+                  }, 180000);
+                }
+                else {
+                  // Remove previous local video tag
+                  $("#video-frame").remove();
+                  // Add new local video tag
+                  $('<video width="1440" height="810" autoplay loop  id="video-frame"><source src="videos/video-4.mp4" type="video/mp4" /></video>')
+                  .appendTo('.video-section');
+                  
+                  $('#video-frame').attr('src', url);
+                  // Remove youtube iframe
+                  $("#video-frame-youtube").remove();  
+                  // $('#video-frame').contentWindow.location.reload(true);
+                }
+              }
+            });
+          }
+          // youtube video
+          else {
+            var extra_string = "?vq=large&amp;rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1&amp;loop=1&amp;modestbranding=1";
+            var url = video_link_backend + extra_string;
+            // Remove previous youtube iframe
+            $("#video-frame-youtube").remove();
+            // Add new youtube iframe
+            $('<iframe width="1440" height="810" src="https://www.youtube.com/embed/TzevGmlfEi0?vq=large&amp;rel=0&amp;controls=0&amp;showinfo=0&amp;autoplay=1&amp;loop=1&amp;modestbranding=1" frameborder="0" id="video-frame-youtube"></iframe>')
+            .appendTo('.video-section');
+
+            $('#video-frame-youtube').attr('src', url);
+            // Remove local video tag
+            $("#video-frame").remove();
+          }
+        });
+
+    });
+
+  </script>
+
+</body>
+
+</html>

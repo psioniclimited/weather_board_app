@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html data-ng-app="demo-app" data-ng-controller="demoAppController">
+    <head>
+        <link rel="stylesheet" href="../bins/lib/bootstrap/css/bootstrap.min.css"/>
+        <script type="text/javascript" src="../bins/lib/skycons/skycons.js"></script>
+        <script type="text/javascript" src="../bins/lib/angular/angular.min.js"></script>
+        <script type="text/javascript" src="../bins/lib/angular/angular-animate.min.js"></script>
+        <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?libraries=places"></script>
+        <script type="text/javascript" src="../bins/wl-ng-weather.js"></script>
+        <script type="text/javascript">
+            //configuration
+            angular.module('wl-ng-weather').value('bins', '../bins');
+            angular.module('wl-ng-weather').value('apikey', 'your.forecast.io.api.key');
+            //create an AngularJS module with a dependency to our weather forecast module
+            var demoApp = angular.module('demo-app', ['wl-ng-weather']);
+            //declare a controller with a dependency on the data service (wlNgWForecastIo)
+            demoApp.controller('demoAppController', function(wlNgWForecastIo) {
+                //get the weather for the North Pole (latitude = 90, longitude = 0)
+                wlNgWForecastIo.get(90, 0)
+                        .then(function(weather) {
+                            //on success, display the weather
+                            alert(JSON.stringify(weather));
+                        }, function(error) {
+                            //on error ...
+                            alert(error);
+                        });
+            });
+        </script>
+    </head>
+</html>

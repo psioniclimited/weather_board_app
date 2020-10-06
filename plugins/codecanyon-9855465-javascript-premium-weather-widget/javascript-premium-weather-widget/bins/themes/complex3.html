@@ -1,0 +1,107 @@
+<div class="wlww-complex3">
+    <style>
+        @import url(http://fonts.googleapis.com/css?family=News+Cycle);
+        .wlww-complex3 {
+            padding: 10px 0;
+            color: #fff;
+            font-family: 'News Cycle', sans-serif;
+            font-size: 13px;
+            line-height: 1.43;
+        }
+        .wlww-complex3 div.hr {
+            margin: 5px 0 5px 0;
+            padding: 0;
+            height: 1px;
+            border-top: 1px solid rgba(255,255,255,0.3);
+        }
+        .wlww-complex3 .form-control {
+            text-align: right;
+            margin-right: -12px;
+        }
+        .wlww-complex3 .refreshable {
+            cursor: pointer;
+        }
+        .wlww-complex3 .row {
+            margin: 0;
+        }
+        .wlww-complex3 span.spaced {
+            margin-left: 10px;
+        }
+        .wlww-complex3 .title {
+            text-transform: uppercase;
+        }
+        .wlww-complex3 .description {
+            font-weight: bold;
+            margin: 3px 0;
+        }
+        .wlww-complex3 .current-temperature {
+            font-size: 200%;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .wlww-complex3 .degree {
+            font-size: 70%;
+            margin-top: 8px;
+            vertical-align: top;
+            display: inline-block;
+            cursor: pointer;
+        }
+        .wlww-complex3 .skycon {
+            position: absolute;
+            top: 15px;
+            left: 30px;
+        }
+        .wlww-complex3 .info {
+            margin-left: 100px;
+        }
+        .wlww-complex3 .forecast {
+            margin: 30px 20px 0;
+            background-color: rgba(0, 0, 0, 0.4);
+            padding: 10px ;
+            border: 1px solid #bbbbbb;
+        }
+        .wlww-complex3 .forecast .day{
+            margin-bottom: 10px;
+        }
+        .wlww-complex3 .max-temperature {
+        }
+        .wlww-complex3 .min-temperature {
+            color: #74d1ff;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-sm-7">
+            <div skycon size="70" icon="weather.current.icon" class="skycon refreshable" ng-click="refresh()"></div>
+            <div class="info">
+                <div class="current-temperature" ng-click="switchMu()">{{weather.current.temperature | wlNgWTemp:mu.temperature}}°</div>
+                <div class="degree" ng-click="switchMu()">{{mu.temperature}}</div>
+                <div class="refreshable" ng-click="refresh()">
+                    <div class="description">{{weather.current.description}}</div>
+                    <div>
+                        <span>{{'High' | wlNgWLocale:lang}}: </span><span class="spaced">{{weather.today.temperatureMax | wlNgWTemp:mu.temperature}}°</span>
+                        <span class="spaced">{{'Low' | wlNgWLocale:lang}}: </span><span class="spaced">{{weather.today.temperatureMin | wlNgWTemp:mu.temperature}}°</span>
+                    </div>
+                    <div>
+                        <span>{{'Wind' | wlNgWLocale:lang}}: </span><span class="spaced">{{weather.current.windSpeed | wlNgWSpeed:mu.temperature}}</span> {{mu.speed}}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-5">
+            <div class="title text-right" data-wl-ng-editable-label data-value=weather.zone data-on-changed="doSearch()" data-is-typing="options.isSearching"></div>
+        </div>
+    </div>
+    <div class="row forecast refreshable" ng-click="refresh()">
+        <div class="col-sm-1"></div>
+        <div class="col-sm-2 text-center" ng-repeat="day in weather.forecast|limitTo:5">
+            <div class="day">{{day.time | wlNgWTimeConverter:'long-day' | wlNgWLocale:lang}}</div>
+            <div skycon size="30" icon="day.icon"></div>
+            <div>
+                <span class="max-temperature">{{day.temperatureMax | wlNgWTemp:mu.temperature}}°</span> /
+                <span class="min-temperature">{{day.temperatureMin | wlNgWTemp:mu.temperature}}°</span>
+            </div>
+            <div class="hr visible-xs"></div>
+        </div>
+    </div>
+</div>
